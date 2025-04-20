@@ -4,7 +4,9 @@ extends Node2D
 # The '$' syntax is a shortcut for get_node().
 # '@onready' ensures the node is ready before we try to access it.
 @onready var map_sprite: Sprite2D = $MapSprite
-
+@onready var token_layer = $TokenLayer
+const TokenScene = preload("res://scenes/tokens/Tokens.tscn")
+	
 # This function runs once when the node enters the scene tree.
 func _ready():
 	# Define the path to your test map image.

@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://da33gwg5n37tx"
+path="res://.godot/imported/ranger with ethereal arrows.png-37da7415fe96f8096c0403c0a4772d3c.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://assets/Tokens/1st D&D Token Collection-20250419T232112Z-001/1st D&D Token  Collection/Warriors, Fighters, Rogues, Rangers e.t.c/ranger with ethereal arrows.png"
+dest_files=["res://.godot/imported/ranger with ethereal arrows.png-37da7415fe96f8096c0403c0a4772d3c.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1

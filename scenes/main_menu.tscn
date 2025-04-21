@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=3 uid="uid://upq3eqy3hc22"]
+
+[ext_resource type="Script" uid="uid://vdaahcbpbhj7" path="res://scenes/main_menu.gd" id="1_l6cm7"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchor_right = 0.008
+anchor_bottom = 0.002
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 209.784
+offset_bottom = 264.704
+script = ExtResource("1_l6cm7")
+base_map_directory = "res://assets/maps"
+
+[node name="Label-TTRPGMapDisplay" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.005
+anchor_top = 0.042
+anchor_right = 0.717
+anchor_bottom = 0.128
+offset_left = 0.095
+offset_top = -0.130001
+offset_right = -0.022995
+offset_bottom = 0.079998
+text = "TTRPG MAP DISPLAY"
+metadata/_edit_use_anchors_ = true
+
+[node name="SelectMapButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.041
+anchor_top = 0.162
+anchor_right = 0.594
+anchor_bottom = 0.279
+offset_left = 0.0209999
+offset_top = 0.0699997
+offset_right = -0.0860138
+offset_bottom = 0.0649948
+text = "Select Map file"
+
+[node name="SelectedPathLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.041
+anchor_top = 0.317
+anchor_right = 0.224
+anchor_bottom = 0.404
+offset_left = 0.0209999
+offset_top = -0.00499725
+offset_right = -0.0559998
+offset_bottom = -0.0600052
+
+[node name="LoadMapButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0505872
+anchor_top = 0.487094
+anchor_right = 0.44067
+anchor_bottom = 0.604094
+offset_left = -0.0280008
+offset_top = -0.0800095
+offset_right = -0.0660019
+offset_bottom = -0.0850067
+disabled = true
+text = "Load map"
+metadata/_edit_use_anchors_ = true
+
+[node name="MapFileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2

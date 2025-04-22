@@ -3,10 +3,33 @@
 [ext_resource type="Script" uid="uid://bytv62tls8pp2" path="res://scenes/main_map.gd" id="1_whrjg"]
 
 [node name="MainMap" type="Node2D"]
+position = Vector2(499, 310)
 script = ExtResource("1_whrjg")
+base_token_directory = "res://assets/Tokens"
 
 [node name="MapSprite" type="Sprite2D" parent="."]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(79, 14)
 
 [node name="TokenLayer" type="Node2D" parent="."]
+position = Vector2(42, 40)
+
+[node name="TokenFileDialog" type="FileDialog" parent="."]
+title = "Open a File"
+ok_button_text = "Open"
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png", "*.svg", "*.jpg, *.jpeg", "*.webp")
+
+[node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="ChangeTokenButton" type="Button" parent="UILayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -118.0
+offset_bottom = 42.0
+grow_horizontal = 0
+text = "Change Token"
+metadata/_edit_use_anchors_ = true

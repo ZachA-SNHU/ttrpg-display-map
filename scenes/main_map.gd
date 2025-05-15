@@ -10,8 +10,9 @@ extends Node2D
 @onready var camera: Camera2D = $Camera2D
 @onready var token_file_dialog = $TokenFileDialog
 @onready var add_token_button = $UILayer/ChangeTokenButton
+@onready var change_map_button: Button = $UILayer/ChangeMapButton
 const TokenScene = preload("res://scenes/Tokens.tscn") # Ensure this path is correct
-
+const MAIN_MENU_SCENE_PATH = "res://scenes/main_menu.tscn"
 # --- State Variables ---
 var is_panning = false
 var currently_dragged_token: Token = null # Variable to hold the token being dragged
@@ -100,6 +101,25 @@ func _ready():
 	if not add_token_button.is_connected("pressed", Callable(self, "_on_add_token_button_pressed")):
 		add_token_button.pressed.connect(_on_add_token_button_pressed)
 	# ----------------------------------
+	change_map_button.pressed.connect(_on_change_map_button_pressed)
+	
+func _on_change_map_button_pressed():
+	print("Change Map button pressed. Returning to Main Menu.")
+	print(GlobalState.selected_map_path)
+	# Before changing scenes, you might want to clear some state:
+	#Reset GlobalState.selected_map_path if you want the menu to not pre-select the old map
+	GlobalState.selected_map_path = ""
+	# - Clear current tokens (optional, depends on desired behavior when returning)
+	for child in token_layer.get_children():
+		child.queue_free()
+		current_token_path = ""
+		currently_dragged_token = null
+
+	# Change scene back to the MainMenu
+	var error = get_tree().change_scene_to_file(MAIN_MENU_SCENE_PATH)
+	if error != OK:
+		printerr("Error changing scene to Main Menu: ", error)
+# -------------------------------------------------------------
 # --- NEW Function: Called when the Add Token Button is pressed ---
 func _on_add_token_button_pressed():
 	print("Add Token button pressed. Initiating token selection.")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dcqt8madxoos0"]
 
-[ext_resource type="Script" uid="uid://bwx4ddc08w74g" path="res://scenes/token.gd" id="1_1xm3u"]
+[ext_resource type="Script" path="res://scenes/token.gd" id="1_1xm3u"]
 [ext_resource type="Texture2D" uid="uid://46144awv3skl" path="res://assets/Tokens/1st D&D Token Collection-20250419T232112Z-001/1st D&D Token  Collection/Tabaxi-Leonin- Feline Races/leonin with white mane.png" id="2_xc0be"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wlpt4"]

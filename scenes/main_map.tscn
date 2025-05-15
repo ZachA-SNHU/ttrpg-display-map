@@ -33,3 +33,15 @@ offset_bottom = 42.0
 grow_horizontal = 0
 text = "Change Token"
 metadata/_edit_use_anchors_ = true
+
+[node name="ChangeMapButton" type="Button" parent="UILayer"]
+anchors_preset = -1
+anchor_left = 0.898
+anchor_top = 0.076
+anchor_right = 0.999
+anchor_bottom = 0.123
+offset_left = 0.503906
+offset_top = -0.248005
+offset_right = 0.151855
+offset_bottom = -4.704
+text = "Change Map"

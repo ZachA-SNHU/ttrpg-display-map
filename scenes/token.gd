@@ -1,16 +1,15 @@
 # File: res://scenes/tokens/Token.gd 
 extends Area2D
-class_name Token # Makes it easy to reference this type
+class_name Token 
 
 # Signal emitted when the token is clicked to start a drag
 signal drag_started
 
-# Optional signal if needed elsewhere, not strictly required for basic drag
-# signal drag_stopped
 
-@onready var visual: Sprite2D = $VisualSprite2D # CHANGE 'Visual' if your Sprite2D has a different name
 
-# You don't need is_dragging here anymore, the map script handles the state
+@onready var visual: Sprite2D = $VisualSprite2D 
+@onready var collision_shape: CollisionShape2D = $CollisionShape2D
+
 
 # Called by Godot when an input event occurs within this Area2D's shape
 func _on_input_event(viewport, event, shape_idx):
@@ -58,4 +57,9 @@ func set_drag_visual(is_dragging: bool):
 	else:
 		visual.modulate = Color(1.0, 1.0, 1.0, 1.0) # Reset to normal (white, opaque)
 
-	
+func set_token_scale(new_scale_vector: Vector2):
+	if is_instance_valid(visual) and is_instance_valid(collision_shape):
+		visual.scale = new_scale_vector
+		
+		if collision_shape.shape is CircleShape2D and visual.texture:
+			collision_shape.scale = new_scale_vector

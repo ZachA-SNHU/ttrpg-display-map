@@ -11,6 +11,7 @@ extends Node2D
 @onready var token_file_dialog = $TokenFileDialog
 @onready var add_token_button = $UILayer/ChangeTokenButton
 @onready var change_map_button: Button = $UILayer/ChangeMapButton
+@onready var token_size_selector: OptionButton = $UILayer/TokenSizeSelector
 const TokenScene = preload("res://scenes/Tokens.tscn") # Ensure this path is correct
 const MAIN_MENU_SCENE_PATH = "res://scenes/main_menu.tscn"
 # --- State Variables ---
@@ -19,6 +20,16 @@ var currently_dragged_token: Token = null # Variable to hold the token being dra
 var pending_placement_pos: Vector2 = Vector2.ZERO
 var is_selecting_token_for_placement: bool = false
 var current_token_path: String = ""
+var last_interacted_token: Token = null
+const DEFAULT_TOKEN_SIZE_TEXT = "Medium (1x)" # Adjust label to reflect actual scale
+var token_size_options = {
+	"Tiny (0.5x)": Vector2(0.5*0.6, 0.5*0.6),
+	"Small (0.75x)": Vector2(0.75*0.6, 0.75*0.6),
+	"Medium (1x)": Vector2(1.0*0.6, 1.0*0.6),
+	"Large (2x)": Vector2(2.0*0.6, 2.0*0.6),
+	"Huge (3x)": Vector2(3.0*0.6, 3.0*0.6),
+	"Gargantuan (4x)": Vector2(4.0*0.6, 4.0*0.6)
+}
 # Make sure this function exists exactly like this in main_map.gd
 func _on_token_file_dialog_file_selected(path: String):
 	print("Token file selected: ", path)
@@ -79,7 +90,26 @@ func _ready():
 		printerr("WARN: 'Base Token Directory' is not set or invalid in the main_map node's Inspector!")
 		printerr("  - Provided path: '", base_token_directory, "'")
 		# We don't disable placement, but the dialog might start at res://
-
+	var item_index = 0
+	var default_selected_idx = -1
+	for size_name in token_size_options:
+		token_size_selector.add_item(size_name, item_index)
+		# Optional: Store the actual scale Vector2 as metadata for the item
+		token_size_selector.set_item_metadata(item_index, token_size_options[size_name])
+		if size_name == DEFAULT_TOKEN_SIZE_TEXT: #check defined default
+			default_selected_idx = item_index
+		item_index += 1
+	if default_selected_idx != -1:
+		token_size_selector.select(default_selected_idx)
+	elif token_size_selector.item_count > 0:
+		token_size_selector.select(0)
+	# Select a default item if desired (e.g., "Medium")
+	# Find the index for "Medium (1x)" and select it
+	for i in token_size_selector.item_count:
+		if token_size_selector.get_item_text(i) == "Medium (1x)":
+			token_size_selector.select(i)
+			break
+			
 	# Connect TokenFileDialog signals (ensure connected only once)
 	if not token_file_dialog.is_connected("file_selected", Callable(self, "_on_token_file_dialog_file_selected")):
 		token_file_dialog.file_selected.connect(_on_token_file_dialog_file_selected)
@@ -103,6 +133,9 @@ func _ready():
 	# ----------------------------------
 	change_map_button.pressed.connect(_on_change_map_button_pressed)
 	
+	# Token Size Selector
+	if not token_size_selector.is_connected("item_selected", Callable(self, "_on_token_size_selected")):
+		token_size_selector.item_selected.connect(_on_token_size_selected)
 func _on_change_map_button_pressed():
 	print("Change Map button pressed. Returning to Main Menu.")
 	print(GlobalState.selected_map_path)
@@ -301,6 +334,46 @@ func _on_token_drag_started(token: Token):
 	# Set this token as the one currently being dragged
 	currently_dragged_token = token
 	# The token itself already handled its visual change in its _on_input_event
+	last_interacted_token = token
+	# Update OptionButton to reflect the current scale of this token (more advanced)
+	_update_size_selector_for_token(token)
 # ------------------------------------
+# --- NEW Function: Called when an item is selected in TokenSizeSelector ---
+func _on_token_size_selected(index: int):
+	if last_interacted_token == null or not is_instance_valid(last_interacted_token):
+		print("No token selected or token is invalid. Cannot apply scale.")
+		# Optionally, disable the OptionButton if no token is 'active'
+		return
 
-	
+	var selected_size_name = token_size_selector.get_item_text(index)
+	# Get the scale from our dictionary or metadata
+	var new_scale: Vector2 = token_size_selector.get_item_metadata(index) # Using metadata
+
+	# Alternative if not using metadata:
+	# var new_scale: Vector2 = token_size_options.get(selected_size_name, Vector2(1,1))
+
+	print("Size selected: {selected_size_name}, applying scale: {new_scale} to token ID {last_interacted_token.get_instance_id()}")
+	last_interacted_token.set_token_scale(new_scale)
+# --- NEW Helper: Update OptionButton based on token's current scale --- (Optional but good UX)
+func _update_size_selector_for_token(token: Token):
+	if token == null or not is_instance_valid(token):
+		# token_size_selector.disabled = true # Disable if no token
+		return
+
+	# token_size_selector.disabled = false
+	var current_scale = token.visual.scale # Assuming visual is the source of truth for scale
+	var best_match_index = -1
+	var smallest_diff = INF
+
+	# Find the closest predefined scale in our options
+	for i in token_size_selector.item_count:
+		var item_scale: Vector2 = token_size_selector.get_item_metadata(i)
+		var diff = (current_scale - item_scale).length_squared() # Compare squared lengths
+		if diff < smallest_diff:
+			smallest_diff = diff
+			best_match_index = i
+
+	if best_match_index != -1:
+		# Check if significantly different before changing, to avoid rapid flickering if scales are very close
+		if not token_size_selector.get_item_metadata(token_size_selector.selected).is_equal_approx(current_scale):
+			token_size_selector.select(best_match_index)

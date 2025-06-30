@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4jrg0cx7rtub"]
+
+[ext_resource type="Script" uid="uid://bbso16jx2enlp" path="res://scenes/ui/CreatureInfoWindow.gd" id="1_vrini"]
+
+[node name="CreatureInfoWindow" type="Window"]
+title = "DM Creature Compendium"
+position = Vector2i(176, 36)
+size = Vector2i(800, 1500)
+content_scale_size = Vector2i(100, 100)
+content_scale_aspect = 4
+script = ExtResource("1_vrini")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+unique_name_in_owner = true
+offset_right = 139.0
+offset_bottom = 56.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MainVBox" type="VBoxContainer" parent="MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TopBarHBox" type="HBoxContainer" parent="MarginContainer/MainVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="AllCreaturesList" type="ItemList" parent="MarginContainer/MainVBox/TopBarHBox"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="AddActiveButton" type="Button" parent="MarginContainer/MainVBox/TopBarHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = " Add to Active"
+
+[node name="ActiveCreaturesTab" type="TabContainer" parent="MarginContainer/MainVBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+tabs_position = 1
+clip_tabs = false

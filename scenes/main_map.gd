@@ -12,9 +12,12 @@ extends Node2D
 @onready var add_token_button = $UILayer/ChangeTokenButton
 @onready var change_map_button: Button = $UILayer/ChangeMapButton
 @onready var token_size_selector: OptionButton = $UILayer/TokenSizeSelector
+@onready var open_dm_menu_button: Button =$UILayer/OpenDMMenuButton
 const TokenScene = preload("res://scenes/Tokens.tscn") # Ensure this path is correct
 const MAIN_MENU_SCENE_PATH = "res://scenes/main_menu.tscn"
+const CREATURE_INFO_WINDOW_SCENE = preload("res://scenes/ui/creature_info_window.tscn")
 # --- State Variables ---
+var creature_info_window_instance = null
 var is_panning = false
 var currently_dragged_token: Token = null # Variable to hold the token being dragged
 var pending_placement_pos: Vector2 = Vector2.ZERO
@@ -136,6 +139,50 @@ func _ready():
 	# Token Size Selector
 	if not token_size_selector.is_connected("item_selected", Callable(self, "_on_token_size_selected")):
 		token_size_selector.item_selected.connect(_on_token_size_selected)
+	if not open_dm_menu_button.is_connected("pressed", Callable(self, "_on_open_dm_menu_button_pressed")):
+		open_dm_menu_button.pressed.connect(_on_open_dm_menu_button_pressed)
+		
+func _on_open_dm_menu_button_pressed():
+	print("WE ARE HERE: _on_open_dm_menu_button_pressed():")
+	if creature_info_window_instance == null or not is_instance_valid(creature_info_window_instance): 
+		print("WE ARE HERE: if creature_info_window_instance == null or not is_instance_valid(creature_info_window_instance) ")
+		creature_info_window_instance = CREATURE_INFO_WINDOW_SCENE.instantiate()
+		get_tree().root.add_child(creature_info_window_instance)
+		print("  Instance created and ADDED TO ROOT: ", creature_info_window_instance)
+
+		if is_instance_valid(creature_info_window_instance):
+			var callable_closed = Callable(self, "_on_dm_menu_closed").bind(creature_info_window_instance)
+			if not creature_info_window_instance.is_connected("close_requested", callable_closed):
+				creature_info_window_instance.close_requested.connect(callable_closed)
+			print("  close_requested signal connected.")
+		else:
+			printerr("  ERROR: creature_info_window_instance became invalid after add_child!")
+			return # Stop
+	else:
+		print("Using existing CreatureInfoWindow instance.")
+	if not is_instance_valid(creature_info_window_instance):
+		printerr("ERROR: creature_info_window_instance is NULL or INVALID before .valid check!")
+		return
+	print("About to check .visible")
+	if creature_info_window_instance.visible:
+		print("Window is currently visible, attempting to hide it.")
+		creature_info_window_instance.hide()
+	else:
+		print("Window is currently hidden, attempting to POPUP_WINDOW")
+		creature_info_window_instance.popup_window()
+		if not creature_info_window_instance.is_connected("close_requested",Callable(self,"_on_dm_menu_closed")):
+			print("WE ARE HERE: if not creature_info_window_instance.is_connected(close_requested,Callable(self,_on_dm_menu_closed)):")
+			creature_info_window_instance.close_requested.connect(_on_dm_menu_closed)
+			if creature_info_window_instance.visible:
+				print("WE ARE HERE: if creature_info_window_instance.visible:")
+				creature_info_window_instance.hide()
+			else:
+				print("WE ARE HERE: else:")
+				creature_info_window_instance.popup_window()
+				creature_info_window_instance.grab_focus()
+func _on_dm_menu_closed():
+	if is_instance_valid(creature_info_window_instance):
+		print("DM Menu closed by user.")
 func _on_change_map_button_pressed():
 	print("Change Map button pressed. Returning to Main Menu.")
 	print(GlobalState.selected_map_path)

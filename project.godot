@@ -18,3 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 GlobalState="*res://scripts/GlobalState.gd"
+CreatureDatabase="*res://scripts/CreatureDatabase.gd"
+
+[display]
+
+window/subwindows/embed_subwindows=false

@@ -1,0 +1,172 @@
+[gd_scene load_steps=2 format=3 uid="uid://clgb7qlty3vmt"]
+
+[ext_resource type="Script" uid="uid://dky5rsrqeh6gd" path="res://scripts/CreatureDisplayPanel.gd" id="1_h1r8f"]
+
+[node name="CreatureDisplayPanel" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
+size_flags_vertical = 3
+script = ExtResource("1_h1r8f")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="StatsContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="NameLabel" type="RichTextLabel" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 2
+
+[node name="SizeLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="ACLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="HPLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="SpeedLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="AbilitiesTitleLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+text = "ABILITIES"
+autowrap_mode = 3
+
+[node name="AbilitiesRichTextLabel" type="RichTextLabel" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SensesLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="LanguagesLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="ChallengeLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="SavingThrowsLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="DamageVulnearabilitiesLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="DamageResistancesLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="DamageImmunitiesLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="ConditionImmunitiesLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+autowrap_mode = 3
+
+[node name="TraitsTitleLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+text = "TRAITS"
+autowrap_mode = 3
+
+[node name="TraitsListContainer" type="VBoxContainer" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ActionsTitleLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+text = "ACTIONS"
+autowrap_mode = 3
+
+[node name="ActionsListContainer" type="VBoxContainer" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="SpecialActionsTitleLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+text = "SPECIAL ACTIONS"
+autowrap_mode = 3
+
+[node name="SpecialActionsListContainer" type="VBoxContainer" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ReactionsTitleLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+text = "REACTIONS"
+autowrap_mode = 3
+
+[node name="ReactionsListContainer" type="VBoxContainer" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LegendaryActionsTitleLable" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+text = "LEGENDARY ACTIONS"
+autowrap_mode = 3
+
+[node name="LegendaryActionsListContainer" type="VBoxContainer" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="LairActionsTitleLabel" type="Label" parent="MarginContainer/StatsContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(400, 50)
+layout_mode = 2
+text = "LAIR ACTIONS"
+autowrap_mode = 3
